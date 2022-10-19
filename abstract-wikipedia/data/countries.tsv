@@ -1,4 +1,4 @@
-Country	Capital	Area	Population     Continent   Currency
+Country	Capital	Area	Population	Continent	Currency
 afghanistan_PN	kabul_PN	652230	36643815	asia_1_PN	(AdjCN (PositA afghan_1_A) (UseN afghani_1_N))
 albania_PN	tirana_PN	28748	3020209	europe_1_PN	(AdjCN (PositA albanian_A) (UseN lek_N))
 algeria_PN	algiers_PN	2381741	41318142	africa_PN	(AdjCN (PositA Algerian) (UseN dinar_9_N))
