@@ -3,18 +3,18 @@ from collections import namedtuple
 
 
 class FactSystem:
-    def __init__(self,fnames,gr,lang1):
-        self.fieldnames = fnames 
+    def __init__(self,gr,lang1):
         self.grammar = gr
         self.language1 = lang1   # the language in which entities are parsed to trees
 
     def get_data(self,filename):
         data = []
-        Data = namedtuple('Data', self.fieldnames)
-        file = open(filename)
-        for line in file:
-            fields = Data(*line.split('\t'))
-            data.append(fields)
+        with open(filename) as file:
+            fieldnames = file.readline().split()
+            Data = namedtuple('Data', fieldnames)
+            for line in file:
+                fields = Data(*line.split('\t'))
+                data.append(fields)
         return data
 
     # can raise ParseError
@@ -33,14 +33,15 @@ class FactSystem:
         
     def run(self,datafile,fact_generator):
         gr = self.grammar
-        data = sorted(list(self.get_data(datafile)))
-        langs = list(gr.languages.values())
-        for lang in langs:
+        data = sorted(self.get_data(datafile))
+        for lang in gr.languages.values():
             text = []
-            for tree in fact_generator(self,data):
-                lin = lang.linearize(tree)
-                if lin: text.append(lin[0].upper() + lin[1:])
+            for doc in fact_generator(self,data):
+                for tree in doc:
+                    lin = lang.linearize(tree)
+                    if lin: text.append(lin[0].upper() + lin[1:])
             print('\n'.join(text))
+            print()
 
 
 def simple_facts(factsys,data):

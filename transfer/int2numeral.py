@@ -58,7 +58,7 @@ def int2numeral_tree(tree):
     if type(up) == int:
         ds = str(up)
     whole,major,minor,unit = int2numeral_parts(ds)
-    return apps(["num",whole,major,minor],unit)
+    return apps(["num","pot3as4",whole,major,minor],unit)
 
     
 def int2numeral_in_tree(int_numeral_dict, tree):
