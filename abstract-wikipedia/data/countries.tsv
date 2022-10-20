@@ -150,7 +150,7 @@ saudi_arabia_PN	riyadh_PN	2250000	33000000	asia_1_PN	(AdjCN (PositA saudi_A) (Us
 senegal_PN	dakar_PN	196722	15850567	africa_PN	(AdjCN (PositA west_african_A) (UseN cfa_franc_N))
 serbia_PN	belgrade_PN	88361	7022268	europe_1_PN	(AdjCN (PositA serbian_A) (UseN dinar_2_N))
 seychelles_1_PN	victoria_5_PN	459	95843	africa_PN	(AdjCN (PositA seychellois_A) (UseN rupee_2_N))
-sierra_leone_PN	freetown_PN	71740	7557212	africa_PN	(AdjCN (PositA sierra_leonean_A) (UseN leone_N))
+sierra_leone_PN	freetown_PN	71740	7557212	africa_PN	(AdjCN (PositA sierra_leonian_A) (UseN leone_N))
 singapore_2_PN	singapore_1_PN	719	5888926	asia_1_PN	(GenPN singapore_2_PN (UseN dollar_1_N))
 slovakia_PN	bratislava_PN	49035	5397036	europe_1_PN	(UseN euro_1_N)
 slovenia_PN	ljubljana_PN	20273	2066880	europe_1_PN	(UseN euro_1_N)
