@@ -28,8 +28,8 @@ def continent_text(factsys,data,cont=None):
         obj = mkNP(the_Det, w.world_4_N)
 
     doc = []
-    doc.append(mkS(mkCl(mkNP (int2numeral_tree(pgf.Expr(ncountries)), w.country_1_N), mkAdv(w.in_1_Prep, obj))))
-    doc.append(mkS(mkCl(mkNP(the_Det, mkCN(w.total_1_A, w.population_1_N)), mkNP(mkDet(int2numeral_tree(pgf.Expr(totalpop)))))))
+    doc.append(mkS(mkCl(mkNP (mkNumeral(ncountries), w.country_1_N), mkAdv(w.in_1_Prep, obj))))
+    doc.append(mkS(mkCl(mkNP(the_Det, mkCN(w.total_1_A, w.population_1_N)), mkNP(mkDet(mkNumeral(totalpop))))))
     doc.append(mkS(w.and_Conj,mkListS(mkS(mkCl(mkNP(pgf.ExprFun(largestpop)), mkVP(w.have_1_V2,mkNP(the_Quant,singularNum,mkOrd(w.large_1_A),mkCN(w.population_1_N)))))
                                      ,mkS(mkCl(mkNP(pgf.ExprFun(largestarea)), mkVP(w.have_1_V2,mkNP(the_Quant,singularNum,mkOrd(w.large_1_A),mkCN(w.area_6_N))))))))
 

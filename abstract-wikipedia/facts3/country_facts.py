@@ -15,13 +15,15 @@ from int2numeral import *
 def country_texts_embedded(factsys,data):
     import wordnet as w
     
-    doc = []
+    facts = []
     for tuple in data:
-        doc.append(mkCl(mkNP(pgf.ExprFun(tuple.country)),mkNP(mkNP(a_Det,w.country_1_N),mkAdv(w.with_Prep,mkNP(int2digits(int(tuple.population)),w.inhabitant_1_N)))))
-        doc.append(mkCl(mkNP(mkDet(w.it_Pron),w.area_6_N),mkNP(int2digits(int(tuple.area)),mkCN(w.square_1_A,w.kilometre_1_N))))
-        print(mkS(w.and_Conj,mkListS(mkS(mkCl(mkNP(the_Det,w.PossNP(mkCN(w.capital_3_N),mkNP(pgf.ExprFun(tuple.country)))),mkNP(pgf.ExprFun(tuple.capital)))),
+        doc = []
+        doc.append(mkCl(mkNP(pgf.ExprFun(tuple.country)),mkNP(mkNP(a_Det,w.country_1_N),mkAdv(w.with_Prep,mkNP(mkDigits(int(tuple.population)),w.inhabitant_1_N)))))
+        doc.append(mkCl(mkNP(mkDet(w.it_Pron),w.area_6_N),mkNP(mkDigits(int(tuple.area)),mkCN(w.square_1_A,w.kilometre_1_N))))
+        doc.append(mkS(w.and_Conj,mkListS(mkS(mkCl(mkNP(the_Det,w.PossNP(mkCN(w.capital_3_N),mkNP(pgf.ExprFun(tuple.country)))),mkNP(pgf.ExprFun(tuple.capital)))),
                                           mkS(mkCl(mkNP(mkDet(w.it_Pron),mkCN(w.currency_1_N)),mkNP(pgf.readExpr(tuple.currency)))))))
-    return [doc]
+        facts.append(doc)
+    return facts
 
 if __name__ == "__main__":
     factsys = FactSystem(gr, 'ParseEng')
