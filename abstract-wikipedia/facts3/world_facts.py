@@ -8,7 +8,6 @@ gr = pgf.readNGF("/usr/local/share/x86_64-linux-ghc-8.8.4/gf-3.11.0/www/robust/P
 gr.embed("wordnet")
 
 from wordnet.api import *
-from int2numeral import *
 
 def continent_text(factsys,data,cont=None):
     import wordnet as w

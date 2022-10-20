@@ -8,7 +8,6 @@ gr = pgf.readNGF("/usr/local/share/x86_64-linux-ghc-8.8.4/gf-3.11.0/www/robust/P
 gr.embed("wordnet")
 
 from wordnet.api import *
-from int2numeral import *
 
 # explicit trees via embedded grammar module, takes 0.214s
 def country_texts_embedded(factsys,data):
