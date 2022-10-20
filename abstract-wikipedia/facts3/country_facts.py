@@ -1,6 +1,5 @@
 import sys
 sys.path.append('../facts2/')
-sys.path.append('../../transfer/')
 from data_facts import *
 
 import pgf
