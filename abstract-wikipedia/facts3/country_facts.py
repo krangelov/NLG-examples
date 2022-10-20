@@ -25,5 +25,5 @@ def country_texts_embedded(factsys,data):
     return facts
 
 if __name__ == "__main__":
-    factsys = FactSystem(gr, 'ParseEng')
+    factsys = FactSystem(gr)
     factsys.run('../data/countries.tsv',country_texts_embedded)

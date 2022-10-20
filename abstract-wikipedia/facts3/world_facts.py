@@ -51,5 +51,5 @@ def world_texts(factsys,data):
     return texts
 
 if __name__ == "__main__":
-    factsys = FactSystem(gr, 'ParseEng')
+    factsys = FactSystem(gr)
     factsys.run('../data/countries.tsv',world_texts)
