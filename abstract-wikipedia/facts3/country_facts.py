@@ -1,87 +1,28 @@
 import sys
 sys.path.append('../facts2/')
+sys.path.append('../../transfer/')
 from data_facts import *
 
 import pgf
 
-def round_int(s,r):
-    e = len(s) - r
-    p = 10**e
-    i = (int(s)//p) * p
-    return pgf.readExpr(str(i))
+gr = pgf.readNGF("/usr/local/share/x86_64-linux-ghc-8.8.4/gf-3.11.0/www/robust/Parse.ngf")
+gr.embed("wordnet")
 
+from wordnet.api import *
+from int2numeral import *
 
 # explicit trees via embedded grammar module, takes 0.214s
 def country_texts_embedded(factsys,data):
-    factsys.grammar.embed("G")
-    import G
+    import wordnet as w
     
-    fields = factsys.fieldnames.split()
-    
-    facts = []
-
+    doc = []
     for tuple in data:
-
-        countr = factsys.str2exp("Name",tuple[0])
-        cap    = factsys.str2exp('Name',tuple.capital)
-        cont   = factsys.str2exp('Name',tuple.continent).unpack()[1][0]  #CDNAME
-        curr   = factsys.str2exp('Name',tuple.currency)
-        pop    = pgf.readExpr(str(tuple.population))
-        are    = pgf.readExpr(str(tuple.area))
-
-        doc = G.OneSentenceDoc(
-                G.FactSentence(
-                    G.KindFact(G.NameObject(countr),
-                        G.ModifierKind(G.PropertyKind(G.cdProperty(cont),G.country_Kind),
-                            G.NumericKindModifier(G.IntNumeric(pop),G.inhabitant_Kind)))))
-        doc = G.AddSentenceDoc(doc,
-                   G.FactSentence(G.AttributeFact(G.area_Attribute, G.PronObject(countr),
-                                                      G.NumericValue(G.IntNumeric(are)))))
-        doc = G.AddSentenceDoc(doc,
-                 G.ConjSentence(
-                   G.FactSentence(G.AttributeFact(G.capital_Attribute, G.NameObject(countr), G.NameValue(cap))),
-                   G.FactSentence(G.AttributeFact(G.currency_Attribute, G.PronObject(countr), G.NameValue(curr)))))
-        facts.append(doc)
-    return facts
-
-# trees via parser, takes 0.537s
-def country_texts_parsed(factsys,data):
-    factsys.grammar.embed("G")
-    import G
-    
-    fields = factsys.fieldnames.split()
-    
-    facts = []
-
-    for tuple in data:
-        countr = factsys.data2lin("CName",tuple.country)
-        cap    = factsys.data2lin('CName',tuple.capital)
-        tcont  = G.cdProperty(factsys.str2exp('Name',tuple.continent).unpack()[1][0])
-        cont   = factsys.exp2str(tcont)
-        curr   = factsys.data2lin('Name',tuple.currency)
-        pop    = factsys.data2lin("Numeric",tuple.population)
-        are    = factsys.data2lin("Numeric",tuple.area)
-        
-        doc = factsys.str2exp("Doc",
-                ("{} is a {} country with {} inhabitants. " 
-                 "its area is {} . "
-                 "the capital of {} is {} and its currency is {}.").format(countr,cont,pop,are,countr,cap,curr))
-        
-        facts.append(doc)
-    return facts
-    
-        
-
-def main():
-    gr = pgf.readPGF('Countries.pgf')
-
-    factsys = FactSystem('country capital area population continent currency',
-                          gr,
-                          'CountriesEng'
-                        )
-            
-#    factsys.run('../data/countries.tsv',country_texts_parsed)
-    factsys.run('../data/countries.tsv',country_texts_embedded)
+        doc.append(mkCl(mkNP(pgf.ExprFun(tuple.country)),mkNP(mkNP(a_Det,w.country_1_N),mkAdv(w.with_Prep,mkNP(int2digits(int(tuple.population)),w.inhabitant_1_N)))))
+        doc.append(mkCl(mkNP(mkDet(w.it_Pron),w.area_6_N),mkNP(int2digits(int(tuple.area)),mkCN(w.square_1_A,w.kilometre_1_N))))
+        print(mkS(w.and_Conj,mkListS(mkS(mkCl(mkNP(the_Det,w.PossNP(mkCN(w.capital_3_N),mkNP(pgf.ExprFun(tuple.country)))),mkNP(pgf.ExprFun(tuple.capital)))),
+                                          mkS(mkCl(mkNP(mkDet(w.it_Pron),mkCN(w.currency_1_N)),mkNP(pgf.readExpr(tuple.currency)))))))
+    return [doc]
 
 if __name__ == "__main__":
-    main()
+    factsys = FactSystem(gr, 'ParseEng')
+    factsys.run('../data/countries.tsv',country_texts_embedded)
