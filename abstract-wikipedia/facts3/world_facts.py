@@ -31,15 +31,11 @@ def continent_text(factsys,data,cont=None):
     doc.append(mkS(w.and_Conj,mkListS(mkS(mkCl(mkNP(pgf.ExprFun(largestpop)), mkVP(w.have_1_V2,mkNP(the_Quant,singularNum,mkOrd(w.large_1_A),mkCN(w.population_1_N)))))
                                      ,mkS(mkCl(mkNP(pgf.ExprFun(largestarea)), mkVP(w.have_1_V2,mkNP(the_Quant,singularNum,mkOrd(w.large_1_A),mkCN(w.area_6_N))))))))
 
-    billions = [c.country for c in cont_data if int(c.population) > 1000000000]
+    billions = [mkNP(pgf.ExprFun(c.country)) for c in cont_data if int(c.population) > 1000000000]
     if len(billions) == 1:
-        subject = billions[0]
-        property = ' is the only country with over a billion inhabitants'
-        #doc.append(w.country_1_N)
-        #doc.append(inhabitant_1_N)
+        doc.append(mkS(billions[0],mkNP(w.the_only_Quant, mkCN(w.country_1_N, mkAdv(w.with_Prep,mkNP(mkDet(a_Quant,mkNum(w.over_AdN,mkCard(w.num(w.pot51)))),mkCN(w.inhabitant_1_N)))))))
     elif len(billions) > 1:
-        subject = ', '.join(billions[:-1]) + ' and ' + billions[-1]
-        property = ' are the only countries with over a billion inhabitants'
+        doc.append(mkS(mkCl(mkNP(w.and_Conj,mkListNP(*billions)),mkNP(mkDet(w.the_only_Quant,pluralNum), mkCN(w.country_1_N, mkAdv(w.with_Prep,mkNP(mkDet(a_Quant,mkNum(w.over_AdN,mkCard(w.num(w.pot51)))),mkCN(w.inhabitant_1_N))))))))
 
     return doc
 
