@@ -17,10 +17,10 @@ class FactSystem:
         gr = self.grammar
         data = sorted(self.get_data(datafile))
         for lang in gr.languages.values():
-            text = []
             for doc in fact_generator(self,data):
+                text = []
                 for tree in doc:
                     lin = lang.linearize(tree)
                     if lin: text.append(lin[0].upper() + lin[1:])
-            print('\n'.join(text))
+                print(' '.join(text))
             print()
