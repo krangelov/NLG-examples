@@ -1,7 +1,7 @@
 country	capital	area	population	continent	currency
 afghanistan_PN	kabul_PN	652230	36643815	asia_1_PN	(AdjCN (PositA afghan_1_A) (UseN afghani_1_N))
 albania_PN	tirana_PN	28748	3020209	europe_1_PN	(AdjCN (PositA albanian_A) (UseN lek_N))
-algeria_PN	algiers_PN	2381741	41318142	africa_PN	(AdjCN (PositA Algerian) (UseN dinar_9_N))
+algeria_PN	algiers_PN	2381741	41318142	africa_PN	(AdjCN (PositA algerian_A) (UseN dinar_9_N))
 andorra_PN	andorra_la_vella_PN	468	76177	europe_1_PN	(UseN euro_1_N)
 angola_PN	luanda_PN	1246700	29784193	africa_PN	(UseN kwanza_1_N)
 antigua_and_barbuda_PN	saint_john's_PN	440	102012	north_america_1_PN	(AdjCN (PositA eastern_caribbean_A) (UseN dollar_1_N))
